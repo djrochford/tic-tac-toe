@@ -1,4 +1,9 @@
-const readline = require('readline');
+var readline = require('readline');
+
+var rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+});
 
 var Board = function() {
   this.squares = [[0,0,0], [0,0,0], [0,0,0]];
@@ -84,8 +89,11 @@ var play = function() {
   };
 
   while (!boardy.winCheck()) {
-    console.log('Your move, ' + player + ':\n')
-    var move = readline();
+    var move = '';
+    rl.nextMove('Your move, ' + player + ':\n', function(string) {
+      move = string
+      r.close();
+    });
     var x = parseInt(move[0]);
     var y = parseInt(move[3]);
     boardy.move(x, y);
